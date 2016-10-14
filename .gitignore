@@ -1,5 +1,6 @@
 build/
 node_modules/
+imgToTest/
 .DS_Store
 Thumbs.db
 .idea
