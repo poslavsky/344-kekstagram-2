@@ -130,14 +130,22 @@
       //задаем цвет и прозрачность фона
       this._ctx.fillStyle = 'rgba(0,0,0,.8)';
       this._ctx.beginPath();
-      this._ctx.rect((-this._resizeConstraint.side / 2) - this._ctx.lineWidth / 2 - this._ctx.lineWidth / 2,
-          (-this._resizeConstraint.side / 2) - this._ctx.lineWidth / 2 - this._ctx.lineWidth / 2,
-          this._resizeConstraint.side - this._ctx.lineWidth / 2 + this._ctx.lineWidth,
-          this._resizeConstraint.side - this._ctx.lineWidth / 2 + this._ctx.lineWidth);
-      this._ctx.rect((-this._container.width / 2 + this._container.width),
-          (-this._container.height / 2),
-          -this._container.width,
-          this._container.height);
+      var lineWidth = this._ctx.lineWidth;
+      var resizeConstraintSide = this._resizeConstraint.side;
+      function innerRect(context) {
+        return context.rect((-resizeConstraintSide / 2) - lineWidth / 2 - lineWidth / 2,
+            (-resizeConstraintSide / 2) - lineWidth / 2 - lineWidth / 2,
+            resizeConstraintSide - lineWidth / 2 + lineWidth,
+            resizeCoddnstraintSide - lineWidth / 2 + lineWidth);
+      };
+      function wrapperRect(context) {
+        return context.rect((-this._container.width / 2 + this._container.width),
+            (-this._container.height / 2),
+            -this._container.width,
+            this._container.height);
+      };
+      innerRect(this._ctx);
+      wrapperRect(this._ctx);
       this._ctx.fill();
 
       // Текст с размерами смещаем на deltaX по оси Х (measureText().width)

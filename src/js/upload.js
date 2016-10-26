@@ -23,6 +23,7 @@
     CUSTOM: 2
   };
 
+  var resizeControls = document.querySelector('.upload-resize-controls').elements;
   /**
    * Регулярное выражение, проверяющее тип загружаемого файла. Составляется
    * из ключей FileType.
@@ -83,20 +84,19 @@
   // Вешаем на интересующие нас три поля обработчик
   // таким образом при каждом изменении будет вызываться
   // resizeFormIsValid и производиться валидация
-  resizeX.onchange = resizeFormIsValid;
-  resizeY.onchange = resizeFormIsValid;
-  resizeSize.onchange = resizeFormIsValid;
+  resizeX.oninput = resizeFormIsValid;
+  resizeY.oninput = resizeFormIsValid;
+  resizeSize.oninput = resizeFormIsValid;
 
 
   function resizeFormIsValid() {
     var valid = true;
-    resizeX.min = 0;
-    resizeY.min = 0;
-    resizeSize.min = 0;
+    // resizeX.min = 0;
+    // resizeY.min = 0;
+    // resizeSize.min = 0;
     resizeX.max = currentResizer._image.naturalWidth - resizeSize.value;
     resizeY.max = currentResizer._image.naturalHeight - resizeSize.value;
 
-    var resizeControls = document.querySelector('.upload-resize-controls').elements;
     for (var i = 0; i < resizeControls.length; i++) {
       if (!resizeControls[i].validity.valid) {
         valid = false;
