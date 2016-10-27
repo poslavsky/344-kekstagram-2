@@ -134,18 +134,18 @@
       var resizeConstraintSide = this._resizeConstraint.side;
       var self = this;
       function innerRect(context) {
-         context.rect((-resizeConstraintSide / 2) - lineWidth / 2 - lineWidth / 2,
-            (-resizeConstraintSide / 2) - lineWidth / 2 - lineWidth / 2,
-            resizeConstraintSide - lineWidth / 2 + lineWidth,
-            resizeConstraintSide - lineWidth / 2 + lineWidth);
-      };
+        context.rect((-resizeConstraintSide / 2) - lineWidth / 2 - lineWidth / 2,
+        (-resizeConstraintSide / 2) - lineWidth / 2 - lineWidth / 2,
+        resizeConstraintSide - lineWidth / 2 + lineWidth,
+        resizeConstraintSide - lineWidth / 2 + lineWidth);
+      }
 
       function wrapperRect(context) {
-         context.rect((-self._container.width / 2 + self._container.width),
-            (-self._container.height / 2),
-            -self._container.width,
-            self._container.height);
-      };
+        context.rect((-self._container.width / 2 + self._container.width),
+        (-self._container.height / 2),
+        -self._container.width,
+        self._container.height);
+      }
 
       innerRect(this._ctx);
       wrapperRect(this._ctx);
