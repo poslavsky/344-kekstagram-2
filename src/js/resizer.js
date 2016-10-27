@@ -132,18 +132,21 @@
       this._ctx.beginPath();
       var lineWidth = this._ctx.lineWidth;
       var resizeConstraintSide = this._resizeConstraint.side;
+      var self = this;
       function innerRect(context) {
-        return context.rect((-resizeConstraintSide / 2) - lineWidth / 2 - lineWidth / 2,
+         context.rect((-resizeConstraintSide / 2) - lineWidth / 2 - lineWidth / 2,
             (-resizeConstraintSide / 2) - lineWidth / 2 - lineWidth / 2,
             resizeConstraintSide - lineWidth / 2 + lineWidth,
-            resizeCoddnstraintSide - lineWidth / 2 + lineWidth);
+            resizeConstraintSide - lineWidth / 2 + lineWidth);
       };
+
       function wrapperRect(context) {
-        return context.rect((-this._container.width / 2 + this._container.width),
-            (-this._container.height / 2),
-            -this._container.width,
-            this._container.height);
+         context.rect((-self._container.width / 2 + self._container.width),
+            (-self._container.height / 2),
+            -self._container.width,
+            self._container.height);
       };
+
       innerRect(this._ctx);
       wrapperRect(this._ctx);
       this._ctx.fill();
