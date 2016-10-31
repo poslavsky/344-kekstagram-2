@@ -118,26 +118,29 @@
           (-this._resizeConstraint.side / 2) - this._ctx.lineWidth / 2,
           this._resizeConstraint.side - this._ctx.lineWidth / 2,
           this._resizeConstraint.side - this._ctx.lineWidth / 2);
-      // var countArcs = this._resizeConstraint.side / 2/2;
-      // console.log(countArcs);
-      // for (var i = 0; i < countArcs; i++) {
-      //   this._ctx.strokeStyle = '#ffe753';
-      //   this._ctx.arc(i * 10, 65, 3, 0, Math.PI * 2, true);
-      //   this._ctx.fill();
-      // };
-
 
       //задаем цвет и прозрачность фона
       this._ctx.fillStyle = 'rgba(0,0,0,.8)';
       this._ctx.beginPath();
-      this._ctx.rect((-this._resizeConstraint.side / 2) - this._ctx.lineWidth / 2 - this._ctx.lineWidth / 2,
-          (-this._resizeConstraint.side / 2) - this._ctx.lineWidth / 2 - this._ctx.lineWidth / 2,
-          this._resizeConstraint.side - this._ctx.lineWidth / 2 + this._ctx.lineWidth,
-          this._resizeConstraint.side - this._ctx.lineWidth / 2 + this._ctx.lineWidth);
-      this._ctx.rect((-this._container.width / 2 + this._container.width),
-          (-this._container.height / 2),
-          -this._container.width,
-          this._container.height);
+      var lineWidth = this._ctx.lineWidth;
+      var resizeConstraintSide = this._resizeConstraint.side;
+      var self = this;
+      function innerRect(context) {
+        context.rect((-resizeConstraintSide / 2) - lineWidth / 2 - lineWidth / 2,
+        (-resizeConstraintSide / 2) - lineWidth / 2 - lineWidth / 2,
+        resizeConstraintSide - lineWidth / 2 + lineWidth,
+        resizeConstraintSide - lineWidth / 2 + lineWidth);
+      }
+
+      function wrapperRect(context) {
+        context.rect((-self._container.width / 2 + self._container.width),
+        (-self._container.height / 2),
+        -self._container.width,
+        self._container.height);
+      }
+
+      innerRect(this._ctx);
+      wrapperRect(this._ctx);
       this._ctx.fill();
 
       // Текст с размерами смещаем на deltaX по оси Х (measureText().width)

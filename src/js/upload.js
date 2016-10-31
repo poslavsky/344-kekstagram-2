@@ -23,6 +23,7 @@
     CUSTOM: 2
   };
 
+  var resizeControls = document.querySelector('.upload-resize-controls').elements;
   /**
    * Регулярное выражение, проверяющее тип загружаемого файла. Составляется
    * из ключей FileType.
@@ -71,9 +72,40 @@
    * Проверяет, валидны ли данные, в форме кадрирования.
    * @return {boolean}
    */
-  var resizeFormIsValid = function() {
-    return true;
-  };
+
+
+    // Находим элементы формы
+  var formElement = document.forms['upload-resize'];
+  var resizeX = formElement['resize-x'];
+  var resizeY = formElement['resize-y'];
+  var resizeSize = formElement['resize-size'];
+  var forwardButton = formElement['resize-fwd'];
+
+  // Вешаем на интересующие нас три поля обработчик
+  // таким образом при каждом изменении будет вызываться
+  // resizeFormIsValid и производиться валидация
+  resizeX.oninput = resizeFormIsValid;
+  resizeY.oninput = resizeFormIsValid;
+  resizeSize.oninput = resizeFormIsValid;
+
+
+  function resizeFormIsValid() {
+    var valid = true;
+    resizeX.min = 0;
+    resizeY.min = 0;
+    resizeSize.min = 0;
+    resizeX.max = currentResizer._image.naturalWidth - resizeSize.value;
+    resizeY.max = currentResizer._image.naturalHeight - resizeSize.value;
+
+    for (var i = 0; i < resizeControls.length; i++) {
+      if (!resizeControls[i].validity.valid) {
+        valid = false;
+        break;
+      }
+    }
+    forwardButton.disabled = !valid;
+    return valid;
+  }
 
   /**
    * Форма загрузки изображения.
