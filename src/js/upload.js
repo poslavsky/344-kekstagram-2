@@ -135,9 +135,6 @@
    */
   var uploadMessage = document.querySelector('.upload-message');
 
-  //Находим элементы, отвечающие за переключение фильтров
-  var filtersRadio = document.querySelectorAll('.upload-filter-controls input');
-
   /**
    * @param {Action} action
    * @param {string=} message
@@ -248,7 +245,10 @@
   //Устанавливаем срок жизни кук - кол-во дней, прошедших с др Грейс Хоппер
   //Находим элементы, отвечающие за переключенеи фильтров и делаем по ним перебор
   //Когда перебор находить чекед элемент, закидываем его в куки.
+  //Находим элементы, отвечающие за переключение фильтров
+
   function cookieSave() {
+    var checkedFilter = document.querySelector("input[name='upload-filter']:checked");
     var oneday = 1000 * 60 * 60 * 24;
     var today = new Date();
     var currentYear = today.getFullYear();
@@ -256,33 +256,19 @@
     var passed = (today.getTime() - lastBirthday.getTime());
     var daysFromToday = Math.floor(passed / oneday);
     daysFromToday = daysFromToday > 0 ? daysFromToday = daysFromToday : daysFromToday = daysFromToday + 365;
-    for (var i = 0; i < filtersRadio.length; i++) {
-      if (filtersRadio[i].checked) {
-        Cookies.set('upload-filter', filtersRadio[i].value, { expires: daysFromToday });
-        break;
-      }
-
-    }
+    window.Cookies.set('upload-filter', checkedFilter.value, { expires: daysFromToday });
   }
 
-
   function addFilter() {
-    var getRadio = Cookies.get('upload-filter');
-    for (var i = 0; i < filtersRadio.length; i++) {
-      if (getRadio === filtersRadio[i].value) {
-        filtersRadio[i].checked = true;
-        var filterClass = 'filter-' + getRadio;
-        filterImage.className = 'filter-image-preview ' + filterClass;
-        break;
-      }
-    }
+    var getRadio = window.Cookies.get('upload-filter');
+    document.getElementById('upload-filter-' + getRadio).checked = true;
+    var filterClass = 'filter-' + getRadio;
+    filterImage.className = 'filter-image-preview ' + filterClass;
   }
 
   forwardButton.onclick = function() {
     addFilter();
   };
-
-
 
   /**
    * Сброс формы фильтра. Показывает форму кадрирования.
