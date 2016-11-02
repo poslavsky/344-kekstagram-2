@@ -91,9 +91,9 @@
 
   function resizeFormIsValid() {
     var valid = true;
-    // resizeX.min = 0;
-    // resizeY.min = 0;
-    // resizeSize.min = 0;
+    resizeX.min = 0;
+    resizeY.min = 0;
+    resizeSize.min = 0;
     resizeX.max = currentResizer._image.naturalWidth - resizeSize.value;
     resizeY.max = currentResizer._image.naturalHeight - resizeSize.value;
 
