@@ -255,7 +255,7 @@
     var lastBirthday = new Date(currentYear, 11, 9);
     var passed = (today.getTime() - lastBirthday.getTime());
     var daysFromToday = Math.floor(passed / oneday);
-    daysFromToday = daysFromToday > 0 ? daysFromToday = daysFromToday : daysFromToday = daysFromToday + 365;
+    daysFromToday = daysFromToday > 0 ? daysFromToday : daysFromToday + 365;
     window.Cookies.set('upload-filter', checkedFilter.value, { expires: daysFromToday });
   }
 

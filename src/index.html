@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700|Open+Sans&subset=latin,cyrillic">
   <link rel="stylesheet" href="css/main.css">
-  <script src="js/js.cookie.js" charset="utf-8"></script>
+  <script src="lib/js.cookie.js" charset="utf-8"></script>
   <title>Кекстаграм</title>
 </head>
 <body>
@@ -31,13 +31,13 @@
     <input type="text" class="invisible" name="resize-image-src" id="resize-image-src">
 
     <fieldset class="upload-resize-controls">
-      <input class="upload-resize-control" type="number" min="0" id="resize-x" name="x">
+      <input class="upload-resize-control" type="number" min="0" id="resize-x" name="x" value="0">
       <label class="upload-resize-label" for="resize-x">Слева, px</label>
 
-      <input class="upload-resize-control" type="number" min="0" id="resize-y" name="y">
+      <input class="upload-resize-control" type="number" min="0" id="resize-y" name="y" value="0">
       <label class="upload-resize-label" for="resize-y">Сверху, px</label>
 
-      <input class="upload-resize-control" type="number" min="0" id="resize-size" name="size">
+      <input class="upload-resize-control" type="number" min="1" id="resize-size" name="size" value="1">
       <label class="upload-resize-label" for="resize-size">Сторона, px</label>
     </fieldset>
 
