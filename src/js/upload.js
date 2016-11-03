@@ -248,7 +248,7 @@
   //Находим элементы, отвечающие за переключение фильтров
 
   function cookieSave() {
-    var checkedFilter = document.querySelector("input[name='upload-filter']:checked");
+    var checkedFilter = document.querySelector('input[name="upload-filter"]:checked');
     var oneday = 1000 * 60 * 60 * 24;
     var today = new Date();
     var currentYear = today.getFullYear();
