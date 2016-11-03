@@ -240,6 +240,36 @@
     }
   };
 
+
+  //Сохраняем последний выбранный фильтр в куки
+  //Устанавливаем срок жизни кук - кол-во дней, прошедших с др Грейс Хоппер
+  //Находим элементы, отвечающие за переключенеи фильтров и делаем по ним перебор
+  //Когда перебор находить чекед элемент, закидываем его в куки.
+  //Находим элементы, отвечающие за переключение фильтров
+
+  function cookieSave() {
+    var checkedFilter = document.querySelector('input[name="upload-filter"]:checked');
+    var oneday = 1000 * 60 * 60 * 24;
+    var today = new Date();
+    var currentYear = today.getFullYear();
+    var lastBirthday = new Date(currentYear, 11, 9);
+    var passed = (today.getTime() - lastBirthday.getTime());
+    var daysFromToday = Math.floor(passed / oneday);
+    daysFromToday = daysFromToday > 0 ? daysFromToday : daysFromToday + 365;
+    window.Cookies.set('upload-filter', checkedFilter.value, { expires: daysFromToday });
+  }
+
+  function addFilter() {
+    var getRadio = window.Cookies.get('upload-filter');
+    document.getElementById('upload-filter-' + getRadio).checked = true;
+    var filterClass = 'filter-' + getRadio;
+    filterImage.className = 'filter-image-preview ' + filterClass;
+  }
+
+  forwardButton.onclick = function() {
+    addFilter();
+  };
+
   /**
    * Сброс формы фильтра. Показывает форму кадрирования.
    * @param {Event} evt
@@ -258,7 +288,7 @@
    */
   filterForm.onsubmit = function(evt) {
     evt.preventDefault();
-
+    cookieSave();
     cleanupResizer();
     updateBackground();
 
