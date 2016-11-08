@@ -1,10 +1,12 @@
 'use strict';
 
+var gallery = require('./gallery');
+
 var getPicturesElement = function(pic) {
   var template = document.querySelector('template');
   var templateContainer = 'content' in template ? template.content : template;
   var picElement = templateContainer.querySelector('.picture').cloneNode(true);
-
+picElement.onclick = gallery.show();
   picElement.querySelector('.picture-comments').textContent = pic.comments;
   picElement.querySelector('.picture-likes').textContent = pic.likes;
 

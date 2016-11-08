@@ -2,6 +2,7 @@
 
 var getPicturesElement = require('./picture');
 var load = require('./load');
+var gallery = require('./gallery');
 
 var PICS_LOAD_URL = 'http://localhost:1507/api/pictures';
 var container = document.querySelector('.pictures');
@@ -13,6 +14,7 @@ var renderPictures = function(arrayElements) {
   arrayElements.forEach(function(pic) {
     container.appendChild(getPicturesElement(pic));
   });
+  gallery.setPictures(arrayElements);
   filters.classList.remove('hidden');
 };
 
