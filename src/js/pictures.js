@@ -11,8 +11,8 @@ var filters = document.querySelector('.filters');
 filters.classList.add('hidden');
 
 var renderPictures = function(arrayElements) {
-  arrayElements.forEach(function(pic) {
-    container.appendChild(getPicturesElement(pic));
+  arrayElements.forEach(function(pic, number) {
+    container.appendChild(getPicturesElement(pic, number));
   });
   gallery.setPictures(arrayElements);
   filters.classList.remove('hidden');
