@@ -2,6 +2,19 @@
 
 var gallery = require('./gallery');
 
+var Picture = function(data, number) {
+  this.data = data;
+  this.element = getPicturesElement(data, number);
+  var self = this;
+  this.element.onclick = function(e) {
+    e.preventDefault();
+    gallery.show(number);
+  };
+  this.remove = function() {
+    self.element.onclick = null;
+  };
+};
+
 var getPicturesElement = function(pic, number) {
   var template = document.querySelector('template');
   var templateContainer = 'content' in template ? template.content : template;
@@ -26,4 +39,5 @@ var getPicturesElement = function(pic, number) {
   return picElement;
 };
 
-module.exports = getPicturesElement;
+//module.exports = getPicturesElement;
+module.exports = Picture;
