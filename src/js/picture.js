@@ -9,8 +9,7 @@ var getPicturesElement = function(pic, number) {
   picElement.onclick = function(e) {
     e.preventDefault();
     gallery.show(number);
-    console.log('click');
-  }
+  };
   picElement.querySelector('.picture-comments').textContent = pic.comments;
   picElement.querySelector('.picture-likes').textContent = pic.likes;
 
