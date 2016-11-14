@@ -17,6 +17,7 @@ var pageNumber = 0;
 var renderPictures = (function() {
   filters.classList.add('hidden');
 
+  //функция-коллбэк, которая из массива данных делает карточки
   var showPictures = function(arrayElements) {
     arrayElements.forEach(function(pic, number) {
       container.appendChild(new Picture(pic, number).element);
@@ -25,25 +26,17 @@ var renderPictures = (function() {
     filters.classList.remove('hidden');
   };
 
+  //функция, которая запускает загружку данных с нужными параметрами - страницы и фильтр
   var loadPictures = function(filter, page) {
     load(PICS_LOAD_URL, {
-      from: 0,
+      from: page * PAGE_SIZE,
       to: page * PAGE_SIZE + PAGE_SIZE,
       filter: filter
     },
-      showPictures);
-  };
-
-  var addPictures = function() {
-    if (container.getBoundingClientRect().height - 120 < window.innerHeight - footer.getBoundingClientRect().height) {
-      loadPictures(activeFilter, ++pageNumber);
-    }
+    showPictures);
   };
 
   loadPictures(activeFilter, pageNumber);
-  addPictures();
-
-  filters.classList.remove('hidden');
 
   filters.addEventListener('change', function(evt) {
     if (evt.target.classList.contains('filters-radio')) {
@@ -56,9 +49,9 @@ var renderPictures = (function() {
     activeFilter = filterID;
     pageNumber = 0;
     loadPictures(filterID, pageNumber);
-    addPictures();
   };
 
+  //THROTTLE - оптимизируем подгрузку изображений
   var THROTTLE_DELAY = 100;
   var lastCall = Date.now();
 
@@ -66,9 +59,7 @@ var renderPictures = (function() {
     if (Date.now() - lastCall >= THROTTLE_DELAY) {
       if (footer.getBoundingClientRect().bottom - window.innerHeight <= GAP) {
         loadPictures(activeFilter, ++pageNumber);
-        addPictures();
       }
-
       lastCall = Date.now();
     }
   });
