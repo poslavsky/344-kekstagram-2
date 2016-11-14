@@ -21,6 +21,7 @@ var renderPictures = (function() {
   var showPictures = function(arrayElements) {
     arrayElements.forEach(function(pic, number) {
       container.appendChild(new Picture(pic, number).element);
+      console.log(number);
     });
     gallery.setPictures(arrayElements);
     filters.classList.remove('hidden');
