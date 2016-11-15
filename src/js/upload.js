@@ -23,7 +23,6 @@ module.exports = (function() {
     CUSTOM: 2
   };
 
-  var resizeControls = document.querySelector('.upload-resize-controls').elements;
   /**
    * Регулярное выражение, проверяющее тип загружаемого файла. Составляется
    * из ключей FileType.
@@ -324,7 +323,7 @@ module.exports = (function() {
    * Обработчик изменения фильтра. Добавляет класс из filterMap соответствующий
    * выбранному значению в форме.
    */
-  filterForm.addEventListener('change', function(evt) {
+  filterForm.addEventListener('change', function() {
     if (!filterMap) {
       // Ленивая инициализация. Объект не создается до тех пор, пока
       // не понадобится прочитать его в первый раз, а после этого запоминается
