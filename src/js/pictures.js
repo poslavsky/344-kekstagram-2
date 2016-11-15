@@ -19,9 +19,9 @@ var renderPictures = (function() {
 
   //функция-коллбэк, которая из массива данных делает карточки
   var showPictures = function(arrayElements) {
+    container.innerHTML = '';
     arrayElements.forEach(function(pic, number) {
       container.appendChild(new Picture(pic, number).element);
-      console.log(number);
     });
     gallery.setPictures(arrayElements);
     filters.classList.remove('hidden');
@@ -30,11 +30,11 @@ var renderPictures = (function() {
   //функция, которая запускает загружку данных с нужными параметрами - страницы и фильтр
   var loadPictures = function(filter, page) {
     load(PICS_LOAD_URL, {
-      from: page * PAGE_SIZE,
+      from: 0,
       to: page * PAGE_SIZE + PAGE_SIZE,
       filter: filter
     },
-    showPictures);
+      showPictures);
   };
 
   loadPictures(activeFilter, pageNumber);
