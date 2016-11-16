@@ -258,29 +258,14 @@ module.exports = (function() {
     }
   });
 
-
-  //Сохраняем последний выбранный фильтр в куки
-  //Устанавливаем срок жизни кук - кол-во дней, прошедших с др Грейс Хоппер
-  //Находим элементы, отвечающие за переключенеи фильтров и делаем по ним перебор
-  //Когда перебор находить чекед элемент, закидываем его в куки.
-  //Находим элементы, отвечающие за переключение фильтров
-
-  function cookieSave() {
+  //сохраняем фильтр в localStorage
+  function localStor() {
     var checkedFilter = document.querySelector('input[name="upload-filter"]:checked');
-    var oneday = 1000 * 60 * 60 * 24;
-    var today = new Date();
-    var currentYear = today.getFullYear();
-    var lastBirthday = new Date(currentYear, 11, 9);
-    var passed = (today.getTime() - lastBirthday.getTime());
-    var daysFromToday = Math.floor(passed / oneday);
-    daysFromToday = daysFromToday > 0 ? daysFromToday : daysFromToday + 365;
-    window.Cookies.set('upload-filter', checkedFilter.value, {
-      expires: daysFromToday
-    });
+    localStorage.setItem('upload-filter', checkedFilter.value);
   }
 
   function addFilter() {
-    var getRadio = window.Cookies.get('upload-filter');
+    var getRadio = localStorage.getItem('upload-filter');
     document.getElementById('upload-filter-' + getRadio).checked = true;
     var filterClass = 'filter-' + getRadio;
     filterImage.className = 'filter-image-preview ' + filterClass;
@@ -311,7 +296,7 @@ module.exports = (function() {
 
   filterForm.addEventListener('submit', function(evt) {
     evt.preventDefault();
-    cookieSave();
+    localStor();
     cleanupResizer();
     updateBackground();
 
