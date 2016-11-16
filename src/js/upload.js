@@ -259,13 +259,13 @@ module.exports = (function() {
   });
 
   //сохраняем фильтр в localStorage
-  function localStor() {
+  function localStorageSave() {
     var checkedFilter = document.querySelector('input[name="upload-filter"]:checked');
     localStorage.setItem('upload-filter', checkedFilter.value);
   }
 
   function addFilter() {
-    var getRadio = localStorage.getItem('upload-filter');
+    var getRadio = localStorage.getItem('upload-filter') || 'filter-none';
     document.getElementById('upload-filter-' + getRadio).checked = true;
     var filterClass = 'filter-' + getRadio;
     filterImage.className = 'filter-image-preview ' + filterClass;
@@ -296,7 +296,7 @@ module.exports = (function() {
 
   filterForm.addEventListener('submit', function(evt) {
     evt.preventDefault();
-    localStor();
+    localStorageSave();
     cleanupResizer();
     updateBackground();
 
