@@ -21,7 +21,7 @@ var renderPictures = (function() {
   var showPictures = function(arrayElements) {
     container.innerHTML = '';
     arrayElements.forEach(function(pic, number) {
-      container.appendChild(new Picture(pic, number).element);
+      container.appendChild(new Picture(pic, number).getPictureElement());
     });
     gallery.setPictures(arrayElements);
     filters.classList.remove('hidden');

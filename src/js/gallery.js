@@ -3,43 +3,46 @@
 var Gallery = function() {
   this.pictures = [];
   this.activePicture = 0;
-  this.overlay = document.querySelector('.gallery-overlay');
-  this.overlayClose = document.querySelector('.gallery-overlay-close');
-  this.overlayImage = document.querySelector('.gallery-overlay-image');
+  this.galleryOverlay = document.querySelector('.gallery-overlay');
+  this.galleryOverlayClose = document.querySelector('.gallery-overlay-close');
+  this.galleryOverlayImage = document.querySelector('.gallery-overlay-image');
 };
 
 Gallery.prototype.setPictures = function(arrayData) {
   this.pictures = arrayData;
 };
 
+Gallery.prototype.overlayClose = function() {
+  this.hide();
+};
+
+Gallery.prototype.overlayImage = function() {
+  if (number + 1 === this.pictures.length) {
+    number = 0;
+    this.setActivePicture(number);
+  } else {
+    this.setActivePicture(++number);
+  }
+};
+
 Gallery.prototype.show = function(number) {
-  var self = this;
-  this.overlayClose.onclick = function() {
-    self.hide();
-  };
-  this.overlayImage.onclick = function() {
-    if (number + 1 === self.pictures.length) {
-      number = 0;
-      self.setActivePicture(number);
-    } else {
-      self.setActivePicture(++number);
-    }
-  };
-  this.overlay.classList.remove('invisible');
+  this.galleryOverlayImage.addEventListener('click', this.overlayImage.bind(this));
+  this.galleryOverlayClose.addEventListener('click', this.overlayClose.bind(this));
+  this.galleryOverlay.classList.remove('invisible');
   this.setActivePicture(number);
 };
 
 Gallery.prototype.hide = function() {
-  this.overlay.classList.add('invisible');
-  this.overlayClose.onclick = null;
-  this.overlayImage.onclick = null;
+  this.galleryOverlay.classList.add('invisible');
+  this.galleryOverlayClose.removeEventListener('click', this.overlayClose.bind(this));
+  this.galleryOverlayImage.removeEventListener('click', this.overlayImage.bind(this));
 };
 
 Gallery.prototype.setActivePicture = function(number) {
   this.pictureLikes = document.querySelector('.likes-count');
   this.pictureComments = document.querySelector('.comments-count');
   this.activePicture = number;
-  this.overlayImage.src = this.pictures[number].url;
+  this.galleryOverlayImage.src = this.pictures[number].url;
   this.pictureLikes.textContent = this.pictures[number].likes;
   this.pictureComments.textContent = this.pictures[number].comments;
 };
