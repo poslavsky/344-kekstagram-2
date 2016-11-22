@@ -16,7 +16,7 @@ Gallery.prototype.overlayClose = function() {
   this.hide();
 };
 
-Gallery.prototype.overlayImage = function() {
+Gallery.prototype.overlayImage = function(number) {
   if (number + 1 === this.pictures.length) {
     number = 0;
     this.setActivePicture(number);
